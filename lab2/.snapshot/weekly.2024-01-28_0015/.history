@@ -1,0 +1,76 @@
+#+1706323493
+D
+#+1706324024
+shell.cs.utah.edu
+#+1706324107
+u1471218@shell.cs.utah.edu
+#+1706324763
+mkdir A1
+#+1706324782
+vi test.c
+#+1706324992
+gcc -S test.c
+#+1706324994
+LS
+#+1706325370
+logout
+#+1706325384
+cd A1
+#+1706325979
+mkdir main
+#+1706326014
+cd test.c
+#+1706326465
+test.c
+#+1706326936
+rm -f test.c
+#+1706326950
+rm -f test.s
+#+1706327089
+cd main
+#+1706327096
+cd ..
+#+1706327144
+rm -rf main
+#+1706327161
+vi main
+#+1706327275
+rm -f main
+#+1706327320
+gcc -S main.c
+#+1706327345
+vi main.c
+#+1706327692
+nasm -f elf64 main.s
+#+1706327742
+vi main.s
+#+1706327765
+rm -f main.s
+#+1706327782
+vi myAms.s
+#+1706327833
+g++ -c main.c
+#+1706327839
+nasm -f elf64 myAsm.s
+#+1706327865
+nasm -f efl64 myAms.s
+#+1706329101
+rm -f main.c
+#+1706329109
+rm -f main.o
+#+1706329117
+rm -f myAms.s
+#+1706329138
+vim main.cpp
+#+1706329177
+g++ -c main.cpp
+#+1706329209
+vim myAsm.s
+#+1706329426
+nasm -felf64 myAsm.s
+#+1706329442
+g++ -o mySyscallProgram main.o myAsm.o
+#+1706329444
+ls
+#+1706330279
+./mySyscallProgram

@@ -1,0 +1,134 @@
+#+1706323493
+D
+#+1706324024
+shell.cs.utah.edu
+#+1706324107
+u1471218@shell.cs.utah.edu
+#+1706324763
+mkdir A1
+#+1706324782
+vi test.c
+#+1706324992
+gcc -S test.c
+#+1706324994
+LS
+#+1706325370
+logout
+#+1706325979
+mkdir main
+#+1706326014
+cd test.c
+#+1706326465
+test.c
+#+1706326936
+rm -f test.c
+#+1706326950
+rm -f test.s
+#+1706327089
+cd main
+#+1706327096
+cd ..
+#+1706327144
+rm -rf main
+#+1706327161
+vi main
+#+1706327320
+gcc -S main.c
+#+1706327345
+vi main.c
+#+1706327692
+nasm -f elf64 main.s
+#+1706327742
+vi main.s
+#+1706327765
+rm -f main.s
+#+1706327782
+vi myAms.s
+#+1706327833
+g++ -c main.c
+#+1706327839
+nasm -f elf64 myAsm.s
+#+1706327865
+nasm -f efl64 myAms.s
+#+1706329101
+rm -f main.c
+#+1706329426
+nasm -felf64 myAsm.s
+#+1706422597
+cd A1
+#+1706422599
+las
+#+1706422634
+vim main
+#+1706422671
+rm -f main
+#+1706423473
+./extern "C" void sayHello ( ) ;
+#+1706423473
+extern "C" int myPuts ( const char* s, int len ) ;
+#+1706423473
+int main ( ) {
+#+1706423473
+sayHello ( ) ;
+#+1706423473
+const char* message = "Hello from myPuts!" ;
+#+1706423473
+myPuts ( message, 19 ) ;
+#+1706423473
+return 0 ;
+#+1706423473
+}
+#+1706423490
+./mySyscallProgram
+#+1706423525
+g++ -o mySyscallProgram main.o myAsm.o
+#+1706423538
+./g++ mySyscallProgram
+#+1706423562
+./myProgram mySyscallProgram
+#+1706423705
+-rm -f mySyscallProgram
+#+1706423722
+rm -f mySyscallProgram
+#+1706423732
+rm -f myProgram
+#+1706423739
+rm -f main.o
+#+1706423749
+rm -f myAsm.o
+#+1706424666
+g++ -c main.cpp
+#+1706425155
+vim myAms.s
+#+1706425386
+rm -f myAms.s
+#+1706425466
+myAsm.s
+#+1706425558
+nasm -felf64 myAsm.s -o myAsm.o
+#+1706425562
+g++ main.o myAsm.o -o myProgram
+#+1706426106
+./ myprogram
+#+1706426656
+vim -myAsm.s
+#+1706426790
+g++ -c main.cpp -o main.o
+#+1706426793
+nasm -f elf64 myAsm.s -o myAsm.o
+#+1706426805
+g++ -o myProgram main.o myAsm.o
+#+1706427549
+chmod +x test_script.sh
+#+1706427646
+vim main.cpp
+#+1706427667
+vim myAsm.s
+#+1706427718
+./myProgram
+#+1706427786
+vim test_script.sh
+#+1706427816
+./test_script.sh
+#+1706427823
+ls
