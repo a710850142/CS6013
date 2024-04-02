@@ -3,59 +3,60 @@
 template <typename T>
 class SerialQueue {
 public:
-    // 构造函数
+    // Constructor initializes an empty queue
     SerialQueue() : head_(nullptr), tail_(nullptr), size_(0) {}
 
-    // 析构函数
+    // Destructor deallocates all the nodes in the queue
     ~SerialQueue() {
         while (head_ != nullptr) {
-            Node* temp = head_->next;
-            delete head_;
-            head_ = temp;
+            Node* temp = head_->next; // Save next node
+            delete head_; // Delete the current node
+            head_ = temp; // Move head to next node
         }
     }
 
-    // 将元素x入队至队列尾部
+    // Enqueue a new element at the end of the queue
     void enqueue(const T& x) {
-        Node* newNode = new Node{x, nullptr};
+        Node* newNode = new Node{x, nullptr}; // Create a new node
         if (tail_ == nullptr) {
-            // 队列为空时
+            // If the queue is empty, the new node is both head and tail
             head_ = tail_ = newNode;
         } else {
-            // 队列非空时
+            // If the queue is not empty, add the new node to the end and update tail
             tail_->next = newNode;
             tail_ = newNode;
         }
-        ++size_;
+        ++size_; // Increment the queue size
     }
 
-    // 从队列头部出队一个元素，返回出队元素的值
+    // Dequeue an element from the front of the queue. Returns false if the queue is empty
     bool dequeue(T* ret) {
         if (head_ == nullptr) {
-            return false; // 队列为空时返回false
+            return false; // Return false if the queue is empty
         }
-        Node* temp = head_;
-        *ret = head_->data; // 通过指针返回数据
-        head_ = head_->next;
+        Node* temp = head_; // Temporary node to hold the head
+        *ret = head_->data; // Set the return value to the data of the head node
+        head_ = head_->next; // Move the head to the next node
         if (head_ == nullptr) {
-            tail_ = nullptr; // 如果队列变空，尾指针也置为nullptr
+            // If the queue is now empty, set tail to nullptr as well
+            tail_ = nullptr;
         }
-        delete temp; // 释放原头节点内存
-        --size_;
+        delete temp; // Free the memory of the dequeued node
+        --size_; // Decrement the queue size
         return true;
     }
 
-    // 返回队列大小
+    // Returns the number of elements in the queue
     int size() const { return size_; }
 
 private:
     struct Node {
-        T data;
-        Node* next;
+        T data; // The data stored in the node
+        Node* next; // Pointer to the next node in the queue
         Node(const T& data, Node* next) : data(data), next(next) {}
     };
 
-    Node* head_; // 指向队列头部的指针
-    Node* tail_; // 指向队列尾部的指针
-    int size_; // 队列中的元素数量
+    Node* head_; // Pointer to the head of the queue
+    Node* tail_; // Pointer to the tail of the queue
+    int size_; // The number of elements in the queue
 };

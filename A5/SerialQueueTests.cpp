@@ -2,34 +2,38 @@
 #include <iostream>
 
 int main() {
-    // 测试静态分配的队列
+    // Testing queue with static allocation
     std::cout << "Testing static allocation...\n";
-    SerialQueue<int> queue;
+    SerialQueue<int> queue; // Create a queue with static allocation
 
+    // Enqueue elements 1, 2, and 3 into the queue
     std::cout << "Enqueue 1, 2, 3\n";
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
+    queue.enqueue(1); // Add 1 to the queue
+    queue.enqueue(2); // Add 2 to the queue
+    queue.enqueue(3); // Add 3 to the queue
 
-    int value;
+    int value; // Variable to store dequeued values
+    // Dequeue and print elements until the queue is empty
     while (queue.dequeue(&value)) {
-        std::cout << "Dequeued: " << value << std::endl;
+        std::cout << "Dequeued: " << value << std::endl; // Print the dequeued value
     }
 
-    // 测试动态分配的队列
+    // Testing queue with dynamic allocation
     std::cout << "\nTesting dynamic allocation...\n";
-    SerialQueue<int>* dynamicQueue = new SerialQueue<int>();
+    SerialQueue<int>* dynamicQueue = new SerialQueue<int>(); // Dynamically allocate a new queue
 
+    // Enqueue elements 4, 5, and 6 into the dynamic queue
     std::cout << "Enqueue 4, 5, 6\n";
-    dynamicQueue->enqueue(4);
-    dynamicQueue->enqueue(5);
-    dynamicQueue->enqueue(6);
+    dynamicQueue->enqueue(4); // Add 4 to the queue
+    dynamicQueue->enqueue(5); // Add 5 to the queue
+    dynamicQueue->enqueue(6); // Add 6 to the queue
 
+    // Dequeue and print elements from the dynamic queue until it's empty
     while (dynamicQueue->dequeue(&value)) {
-        std::cout << "Dequeued from dynamic queue: " << value << std::endl;
+        std::cout << "Dequeued from dynamic queue: " << value << std::endl; // Print the dequeued value from dynamic queue
     }
 
-    delete dynamicQueue; // 清理动态分配的队列
+    delete dynamicQueue; // Clean up the dynamically allocated queue
 
     return 0;
 }
