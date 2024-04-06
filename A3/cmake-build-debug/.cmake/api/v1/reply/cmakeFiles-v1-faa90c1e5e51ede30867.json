@@ -1163,8 +1163,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/xxy/Desktop/CS6013/A3/cmake-build-debug",
-		"source" : "/Users/xxy/Desktop/CS6013/A3"
+		"build" : "/Users/xxy/Desktop/A3/cmake-build-debug",
+		"source" : "/Users/xxy/Desktop/A3"
 	},
 	"version" : 
 	{

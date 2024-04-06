@@ -1,0 +1,3 @@
+/Users/xxy/Desktop/A6/cmake-build-debug/CMakeFiles/A6.dir
+/Users/xxy/Desktop/A6/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/xxy/Desktop/A6/cmake-build-debug/CMakeFiles/rebuild_cache.dir

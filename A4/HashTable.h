@@ -1,24 +1,24 @@
 #ifndef LINEAR_PROBING_HASH_TABLE_HPP
 #define LINEAR_PROBING_HASH_TABLE_HPP
 
-#include <cstddef> // size_t的定义
-#include <sys/mman.h> // mmap和munmap的定义
+#include <cstddef>
+#include <sys/mman.h>
 
-// 定义哈希表条目结构
+// Define the hash table entry structure
 struct HashEntry {
-    void* key;   // 存储地址
-    size_t size; // 分配的大小
-    bool active; // 是否被占用
+    void* key;   // storage address
+    size_t size; // allocated size
+    bool active; // Is it occupied?
 
     HashEntry();
 };
 
 class LinearProbingHashTable {
 private:
-    HashEntry* table; // 哈希表数组
-    size_t capacity;  // 哈希表容量
-    size_t elementCount; // 哈希表当前元素数量
-    const float maxLoadFactor; // 最大装载因子
+    HashEntry* table; // Hash table array
+    size_t capacity;  // Hash table capacity
+    size_t elementCount; // The current number of elements in the hash table
+    const float maxLoadFactor; // maximum load factor
 
     void growAndRehash();
     void insertHelper(void* key, size_t size);

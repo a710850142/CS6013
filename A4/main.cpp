@@ -15,31 +15,31 @@ void my_free(void* ptr) {
 }
 
 int main() {
-    // 初始化自定义内存管理器
+    // Initialize a custom memory manager
     MyMalloc myMalloc;
 
-    // 性能测试：自定义内存分配与释放
+    // Performance test: Custom memory allocation and release
     auto start_custom = std::chrono::high_resolution_clock::now();
 
     std::vector<void*> custom_allocations;
     const size_t smallSize = 128;
     const size_t largeSize = 1024 * 1024; // 1MB
 
-    // 分配小内存块并使用
+    // Allocate small memory block and use
     for (int i = 0; i < 1000; ++i) {
         void* ptr = my_malloc(smallSize);
         memset(ptr, i % 256, smallSize);
         custom_allocations.push_back(ptr);
     }
 
-    // 分配大内存块并使用
+    // Allocate large memory block and use
     for (int i = 0; i < 10; ++i) {
         void* ptr = my_malloc(largeSize);
         memset(ptr, i % 256, largeSize);
         custom_allocations.push_back(ptr);
     }
 
-    // 释放内存
+    // free memory
     for (void* ptr : custom_allocations) {
         my_free(ptr);
     }
@@ -48,26 +48,26 @@ int main() {
     std::chrono::duration<double> diff_custom = end_custom - start_custom;
     std::cout << "Custom allocation/deallocation time: " << diff_custom.count() << " s\n";
 
-    // 性能测试：系统内存分配与释放
+    // Performance test: system memory allocation and release
     auto start_system = std::chrono::high_resolution_clock::now();
 
     std::vector<void*> system_allocations;
 
-    // 系统分配小内存块并使用
+    // The system allocates small memory blocks and uses
     for (int i = 0; i < 1000; ++i) {
         void* ptr = malloc(smallSize);
         memset(ptr, i % 256, smallSize);
         system_allocations.push_back(ptr);
     }
 
-    // 系统分配大内存块并使用
+    // The system allocates a large memory block and uses
     for (int i = 0; i < 10; ++i) {
         void* ptr = malloc(largeSize);
         memset(ptr, i % 256, largeSize);
         system_allocations.push_back(ptr);
     }
 
-    // 系统释放内存
+    // System releases memory
     for (void* ptr : system_allocations) {
         free(ptr);
     }

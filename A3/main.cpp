@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <cstring>
-#include <cstdlib> // 为 getenv 和 setenv 添加
+#include <cstdlib> // Added for getenv and setenv
 
 int main() {
     std::string line;
@@ -29,7 +29,7 @@ int main() {
         auto tokens = tokenize(line);
         auto commands = getCommands(tokens);
 
-        if (commands.empty()) continue; // 忽略空命令
+        if (commands.empty()) continue; // Ignore empty commands
 
         for (size_t i = 0; i < commands.size(); ++i) {
             auto& command = commands[i];
@@ -58,14 +58,14 @@ int main() {
             }
 
             pid_t pid = fork();
-            if (pid == 0) { // 子进程
-                // 输入重定向
+            if (pid == 0) { // child process
+                // input redirect
                 if (command.inputFd != STDIN_FILENO) {
                     dup2(command.inputFd, STDIN_FILENO);
                     close(command.inputFd);
                 }
 
-                // 输出重定向
+                // Output redirection
                 if (command.outputFd != STDOUT_FILENO) {
                     dup2(command.outputFd, STDOUT_FILENO);
                     close(command.outputFd);
@@ -76,12 +76,12 @@ int main() {
                 for (auto& arg : command.argv) {
                     argv.push_back(const_cast<char*>(arg));
                 }
-                argv.push_back(nullptr); // 确保以nullptr结尾
+                argv.push_back(nullptr); // Make sure to end with nullptr
 
                 execvp(command.execName.c_str(), argv.data());
                 perror("execvp");
                 exit(EXIT_FAILURE);
-            } else if (pid > 0) { // 父进程
+            } else if (pid > 0) { // parent process
                 int status;
                 if (!command.background) {
                     waitpid(pid, &status, 0);
@@ -89,12 +89,12 @@ int main() {
                     std::cout << "Started background job " << pid << std::endl;
                 }
 
-                // 关闭未使用的管道端
+                // Close unused pipe ends
                 if (i < commands.size() - 1) {
-                    close(pipefd[1]); // 关闭写端，因为子进程已经复制了
+                    close(pipefd[1]); // Close the write side because the child process has copied
                 }
                 if (i > 0) {
-                    close(commands[i-1].inputFd); // 关闭前一个命令的输入端
+                    close(commands[i-1].inputFd); // Close the input of the previous command
                 }
             } else {
                 perror("fork");

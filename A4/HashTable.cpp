@@ -2,67 +2,67 @@
 #include <cassert>
 #include <cstring>
 
-// HashEntry构造函数实现
+// HashEntry constructor implementation
 HashEntry::HashEntry() : key(nullptr), size(0), active(false) {}
 
-// LinearProbingHashTable构造函数实现
+// LinearProbingHashTable constructor implementation
 LinearProbingHashTable::LinearProbingHashTable(size_t initCapacity)
         : capacity(initCapacity), elementCount(0), maxLoadFactor(0.75) {
     table = (HashEntry*)mmap(nullptr, capacity * sizeof(HashEntry),
                              PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    assert(table != MAP_FAILED); // 确保mmap调用成功
-    memset(table, 0, capacity * sizeof(HashEntry)); // 初始化
+    assert(table != MAP_FAILED); // Make sure the mmap call is successful
+    memset(table, 0, capacity * sizeof(HashEntry)); // initialization
 }
 
-// LinearProbingHashTable析构函数实现
+// LinearProbingHashTable destructor implementation
 LinearProbingHashTable::~LinearProbingHashTable() {
-    munmap(table, capacity * sizeof(HashEntry)); // 释放内存
+    munmap(table, capacity * sizeof(HashEntry)); // free memory
 }
 
-// 计算哈希值
+// Calculate hash value
 size_t LinearProbingHashTable::hash(void* ptr) {
     return reinterpret_cast<size_t>(ptr) >> 3;
 }
 
-// 扩容并重新哈希
+// Expand and rehash
 void LinearProbingHashTable::growAndRehash() {
     size_t oldCapacity = capacity;
-    capacity *= 2; // 容量加倍
+    capacity *= 2; // Double capacity
 
     HashEntry* oldTable = table;
     table = (HashEntry*)mmap(nullptr, capacity * sizeof(HashEntry),
                              PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    assert(table != MAP_FAILED); // 确保mmap调用成功
+    assert(table != MAP_FAILED); // Make sure the mmap call is successful
 
-    memset(table, 0, capacity * sizeof(HashEntry)); // 初始化新表
+    memset(table, 0, capacity * sizeof(HashEntry)); // Initialize new table
 
     size_t i;
     for (i = 0; i < oldCapacity; i++) {
         if (oldTable[i].active) {
-            insertHelper(oldTable[i].key, oldTable[i].size); // 重新插入到新表
+            insertHelper(oldTable[i].key, oldTable[i].size); // Reinsert into new table
         }
     }
 
-    munmap(oldTable, oldCapacity * sizeof(HashEntry)); // 释放旧表内存
+    munmap(oldTable, oldCapacity * sizeof(HashEntry)); // Release old table memory
 }
 
-// 插入辅助函数，用于扩容后重新插入
+// Insert auxiliary function for re-insertion after expansion
 void LinearProbingHashTable::insertHelper(void* key, size_t size) {
     size_t index = hash(key) % capacity;
     while (table[index].active) {
         if (table[index].key == key) {
-            // 如果找到相同的键，更新其大小
+            // If the same key is found, update its size
             table[index].size = size;
             return;
         }
-        index = (index + 1) % capacity; // 线性探测
+        index = (index + 1) % capacity; // Linear detection
     }
     table[index].key = key;
     table[index].size = size;
     table[index].active = true;
 }
 
-// 插入
+// insert
 void LinearProbingHashTable::insert(void* key, size_t size) {
     if ((elementCount + 1) > capacity * maxLoadFactor) {
         growAndRehash();
@@ -71,31 +71,31 @@ void LinearProbingHashTable::insert(void* key, size_t size) {
     elementCount++;
 }
 
-// 查找
+// Find
 size_t LinearProbingHashTable::find(void* key) {
     size_t index = hash(key) % capacity;
     while (table[index].active) {
         if (table[index].key == key) {
-            return table[index].size; // 返回找到的大小
+            return table[index].size; // Return the size found
         }
-        index = (index + 1) % capacity; // 如果当前槽已被占用，则尝试下一个槽
+        index = (index + 1) % capacity; // If the current slot is already occupied, try the next slot
         if (!table[index].active) {
-            break; // 如果下一个槽未被占用，停止查找
+            break; // If the next slot is not occupied, stop searching
         }
     }
-    return 0; // 未找到
+    return 0; // not found
 }
 
-// 删除
+// delete
 void LinearProbingHashTable::remove(void* key) {
     size_t index = hash(key) % capacity;
     while (table[index].active) {
         if (table[index].key == key) {
-            table[index].active = false; // 标记为不活跃
+            table[index].active = false; // Mark as inactive
             elementCount--;
-            // 注意：这里不执行内存释放操作，只是在哈希表中标记为不活跃
+            // Note: The memory release operation is not performed here, it is just marked as inactive in the hash table.
             return;
         }
-        index = (index + 1) % capacity; // 线性探测下一个槽
+        index = (index + 1) % capacity; // Linearly probe the next slot
     }
 }

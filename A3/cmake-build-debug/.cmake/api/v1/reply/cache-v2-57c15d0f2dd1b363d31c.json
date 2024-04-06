@@ -11,7 +11,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/xxy/Desktop/CS6013/A3/cmake-build-debug"
+			"value" : "/Users/xxy/Desktop/A3/cmake-build-debug"
 		},
 		{
 			"name" : "222_IS_TOP_LEVEL",
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/xxy/Desktop/CS6013/A3"
+			"value" : "/Users/xxy/Desktop/A3"
 		},
 		{
 			"name" : "CMAKE_ADDR2LINE",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/xxy/Desktop/CS6013/A3/cmake-build-debug"
+			"value" : "/Users/xxy/Desktop/A3/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/xxy/Desktop/CS6013/A3/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/Users/xxy/Desktop/A3/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/xxy/Desktop/CS6013/A3"
+			"value" : "/Users/xxy/Desktop/A3"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",

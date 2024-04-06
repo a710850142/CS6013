@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include <cstdlib> // 为了使用 getenv
+#include <cstdlib> // In order to use getenv
 
 std::vector<std::string> tokenize(const std::string& s) {
     std::vector<std::string> ret;
@@ -15,7 +15,7 @@ std::vector<std::string> tokenize(const std::string& s) {
     while ((space = s.find(' ', pos)) != std::string::npos) {
         std::string word = s.substr(pos, space - pos);
         if (!word.empty()) {
-            // 检查环境变量
+            // Check environment variables
             if (word[0] == '$') {
                 const char* envValue = getenv(word.substr(1).c_str());
                 if (envValue) {
@@ -27,10 +27,10 @@ std::vector<std::string> tokenize(const std::string& s) {
         pos = space + 1;
     }
 
-    // 处理最后一个词
+    // process last word
     std::string lastWord = s.substr(pos, s.size() - pos);
     if (!lastWord.empty()) {
-        // 检查环境变量
+        // Check environment variables
         if (lastWord[0] == '$') {
             const char* envValue = getenv(lastWord.substr(1).c_str());
             if (envValue) {
@@ -40,7 +40,7 @@ std::vector<std::string> tokenize(const std::string& s) {
         ret.push_back(lastWord);
     }
 
-    // 这里是之前的代码，处理特殊符号
+    // Here is the previous code, dealing with special symbols
     for (int i = 0; i < ret.size(); ++i) {
         for (char c : {'&', '<', '>', '|'}) {
             if (splitOnSymbol(ret, i, c)) {
